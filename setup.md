@@ -46,5 +46,5 @@ Update poi Dockerfile
 > I had to add zscaler certificate to get dotnet restore to work
 
 ```bash
-docker run --network openhack -p 8080:80 poi  
+docker run --network openhack -p 8080:80 -e SQL_USER=sa -e SQL_PASSWORD=<Password Here> -e ASPNETCORE_ENVIRONMENT=Local poi
 ```
