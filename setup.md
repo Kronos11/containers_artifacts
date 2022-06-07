@@ -11,10 +11,18 @@ docker run --network openhack -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=<Password Here>
    -p 1433:1433 --name sql1 --hostname sql1 \
    mcr.microsoft.com/mssql/server:2017-latest
 ```
+
 ### Create mydrivingDB
 ```bash
 docker exec -it sql1 "/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P <Password Here>"
 CREATE DATABASE mydrivingDB
+```
+
+## Login to Azure CR
+Login with your hacker creds
+```bash
+az login
+az acr login --name registryrca1339
 ```
 
 ## Load SQL Data
@@ -40,4 +48,3 @@ Update poi Dockerfile
 ```bash
 docker run --network openhack -p 8080:80 poi  
 ```
-
