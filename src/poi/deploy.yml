@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: poi
+spec:
+  containers:
+  - name: poi-kc
+    image: registryrca1339.azurecr.io/poi-kc:1.0
+    ports:
+    - containerPort: 80
