@@ -3,7 +3,7 @@
 ## New AKS Cluster
 ```bash
 az aks create \
- --resource-group myResourceGroup \
+ --resource-group teamResources \
  --name AKSSecurity \
  --network-plugin azure \
  --vnet-subnet-id <subnet-id> \
