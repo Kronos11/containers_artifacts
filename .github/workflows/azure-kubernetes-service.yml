@@ -36,7 +36,7 @@ on:
 env:
   AZURE_CONTAINER_REGISTRY: "registryrca1339"
   CONTAINER_NAME: "poi"
-  RESOURCE_GROUP: "RG-Team8"
+  RESOURCE_GROUP: "teamResources"
   CLUSTER_NAME: "Team8AKS"
   IMAGE_PULL_SECRET_NAME: "acrPullSecret"
   DEPLOYMENT_MANIFEST_PATH: 'src/poi/deploy.yml'
