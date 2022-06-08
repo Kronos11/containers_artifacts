@@ -13,3 +13,5 @@ az aks create \
  --generate-ssh-keys
  --enable-aad --enable-azure-rbac
 ```
+
+/subscriptions/4b2d4309-4d3f-441e-82b8-9af621bfd8fe/resourceGroups/teamResources/providers/Microsoft.Network/virtualNetworks/vnet/subnets/vm-subnet
