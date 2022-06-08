@@ -331,3 +331,5 @@ ASALocalRun/
 
 # VSCode Local Settings
 *.vscode
+src/poi/nuget.config
+src/poi/zscaler.crt
