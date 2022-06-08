@@ -1,3 +1,7 @@
+# Challenge 3 - AKS with Security
+
+## New AKS Cluster
+```bash
 az aks create \
  --resource-group teamResources \
  --name AKSSecurity8 \
@@ -9,7 +13,6 @@ az aks create \
  --generate-ssh-keys \
  --enable-aad \
  --enable-azure-rbac
-
-
+```
 
 
