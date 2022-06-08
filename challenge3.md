@@ -10,8 +10,9 @@ az aks create \
  --docker-bridge-address 172.17.0.1/16 \
  --dns-service-ip 10.2.0.10 \
  --service-cidr 10.2.0.0/24 \
- --generate-ssh-keys
- --enable-aad --enable-azure-rbac
+ --generate-ssh-keys \
+ --enable-aad \
+ --enable-azure-rbac
 ```
 
 
