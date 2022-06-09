@@ -21,18 +21,19 @@ spec:
         ports:
         - containerPort: 80
         env:
-        - name: SQL_USER
-          valueFrom:
-            secretKeyRef:
-              name: sqlserver-secret
-              key: username
-        - name: SQL_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: sqlserver-secret
-              key: password
         - name: SQL_SERVER
           value: sqlserverrca1339.database.windows.net
+        volumeMounts:
+          - name: secrets-store
+            mountPath: "/secrets"
+            readOnly: true
+      volumes:
+      - name: secrets-store
+        csi:
+          driver: secrets-store.csi.k8s.io
+          readOnly: true
+          volumeAttributes:
+            secretProviderClass: keyvault-sql
 ---
 apiVersion: v1
 kind: Service

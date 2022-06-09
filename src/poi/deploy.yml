@@ -24,12 +24,12 @@ spec:
         - name: SQL_USER
           valueFrom:
             secretKeyRef:
-              name: sqlserver-secret
+              name: keyvault-sql
               key: username
         - name: SQL_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: sqlserver-secret
+              name: keyvault-sql
               key: password
         - name: SQL_SERVER
           value: sqlserverrca1339.database.windows.net
