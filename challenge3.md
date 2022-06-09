@@ -170,8 +170,6 @@ subjects:
 
 kubectl apply -f rolebinding-web1-user.yaml
 
-
-
-
-
-
+# Update env variables in TripViewer to include the namespace
+> trips-service.api-namespace
+> userprofile-service.api-namespace
