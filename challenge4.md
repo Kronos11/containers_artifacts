@@ -12,7 +12,8 @@ az keyvault create -n Team8KeyVault -g teamResources -l centralus
 
 Add Secret
 ```azureCLI
-az keyvault secret set --vault-name Team8KeyVault -n SqlServerUser --value MyAKSExampleSecret
+az keyvault secret set --vault-name Team8KeyVault -n SqlServerUser --value <User>
+az keyvault secret set --vault-name Team8KeyVault -n SqlServerPass --value <Password>
 ```
 
 ## Add identity Access
@@ -26,6 +27,13 @@ az extension add --name aks-preview
 az extension update --name aks-preview
 
 az aks update -g teamResources -n AKSSecurity8 --enable-pod-identity
+
+# Use identity
+az aks show \
+-g teamResources \
+-n AKSSecurity8 \
+--query "addonProfiles.azureKeyvaultSecretsProvider.identity.clientId" -o tsv
+Assign identity to Team8KeyVault
 
 # set policy to access keys in your key vault
 az keyvault set-policy -n Team8KeyVault --key-permissions get --spn <pod-identity-client-id>
