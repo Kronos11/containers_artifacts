@@ -16,10 +16,15 @@ az aks create \
 
 
  az aks get-credentials --resource-group teamResources --name AKSSecurity8 --admin
+#  Merged "AKSSecurity8-admin" as current context in /Users/jaspreetbhatia/.kube/config
  
+# Create the API namespace
 kubectl create namespace api-namespace
 
+# Create the Web namespace 
 kubectl create namespace web-namespace
+
+# Create the Roles for Write and Read permissions within API namespace
 
 vi role-api-namespace.yaml
 
@@ -43,8 +48,11 @@ rules:
   resources: ["*"]
   verbs: ["get","watch","list"]
 
+# Apply the Roles to K8S 
 
 kubectl apply -f role-api-namespace.yaml
+
+# Create the Roles for Write and Read permissions within WEB namespace
 
 vi role-web-namespace.yaml 
 
@@ -68,7 +76,11 @@ rules:
   resources: ["*"]
   verbs: ["get","watch","list"]
 
+# Apply the Roles to K8S 
+
 kubectl apply -f role-web-namespace.yaml
+
+# Create a YAML file for binding the Writer Role within API namespace to api-dev AAD user 
 
 vi rolebinding-api-namespace.yaml
 
@@ -86,7 +98,11 @@ subjects:
   namespace: api-namespace
   name: 54045861-f87d-4eda-8a6a-e288ce9c2cfb
   
+  # apply the Role binding to K8S 
+  
   kubectl apply -f rolebinding-api-namespace.yaml
+  
+  # Create a YAML file for binding the Reader  Role within WEB namespace to api-dev AAD user 
   
   vi rolebinding-web-namespace.yaml
   
@@ -103,9 +119,13 @@ subjects:
 - kind: User
   namespace: web-namespace
   name: 54045861-f87d-4eda-8a6a-e288ce9c2cfb
+ 
+  # apply the Role binding to K8S
   
   kubectl apply -f rolebinding-web-namespace.yaml
-  
+ 
+ # Create a YAML file for binding the Writer  Role within WEB namespace to web-dev AAD user
+ 
   vi rolebinding-web-user.yaml
   
   kind: RoleBinding
@@ -122,9 +142,13 @@ subjects:
   namespace: api-namespace
   name: 43dc1b25-69c5-46ed-adec-b7f6f4fe1f4d
 ~                                             
+# apply the Role binding to K8S
 
 kubectl apply -f rolebinding-web-user.yaml
 
+ 
+ # Create a YAML file for binding the Reader  Role within API namespace to web-dev AAD user
+ 
 vi rolebinding-web1-user.yaml
 
 kind: RoleBinding
@@ -141,6 +165,8 @@ subjects:
   namespace: api-namespace
   name: 54045861-f87d-4eda-8a6a-e288ce9c2cfb
 ~                                            
+
+# apply the Role binding to K8S
 
 kubectl apply -f rolebinding-web1-user.yaml
 
