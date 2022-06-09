@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trips-deployment
+  namespace: api-namespace
+  labels:
+    app: trips
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: trips
+  template:
+    metadata:
+      labels:
+        app: trips
+    spec:
+      containers:
+      - name: trips
+        image: registryrca1339.azurecr.io/trips-jb:1.0
+        ports:
+        - containerPort: 80
+        env:
+        - name: SQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: sqlserver-secret
+              key: username
+        - name: SQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: sqlserver-secret
+              key: password
+        - name: SQL_SERVER
+          value: sqlserverrca1339.database.windows.net
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: trips-service
+  namespace: api-namespace
+spec:
+  type: LoadBalancer
+  ports: 
+  - name: http
+    port: 80
+    targetPort: 80
+  selector:
+    app: trips

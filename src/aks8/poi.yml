@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: poi-deployment
+  namespace: api-namespace
+  labels:
+    app: poi
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: poi
+  template:
+    metadata:
+      labels:
+        app: poi
+    spec:
+      containers:
+      - name: poi
+        image: registryrca1339.azurecr.io/poi-jb:1.0
+        ports:
+        - containerPort: 80
+        env:
+        - name: SQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: sqlserver-secret
+              key: username
+        - name: SQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: sqlserver-secret
+              key: password
+        - name: SQL_SERVER
+          value: sqlserverrca1339.database.windows.net
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: poi-service
+  namespace: api-namespace
+spec:
+  type: LoadBalancer
+  ports: 
+  - name: http
+    port: 80
+    targetPort: 80
+  selector:
+    app: poi
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: minimal-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx-example
+  rules:
+  - http:
+      paths:
+      - path: /poi
+        pathType: Prefix
+        backend:
+          service:
+            name: test
+            port:
+              number: 80
